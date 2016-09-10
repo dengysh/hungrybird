@@ -18,7 +18,7 @@ void Fish::update()
 	if (GAME_STATUS != 1)
 		return;
 	addCount++;
-	if (addCount == 60)
+	if (addCount == 120)
 	{
 		addOne(0);
 		addCount = 0;
@@ -32,7 +32,7 @@ void Fish::update()
 		{
 			FishList->removeObjectAtIndex(i);
 			this->removeChild(s);
-			cocos2d::log("a obstacle removed");
+			cocos2d::log("a fish removed");
 		}
 	}
 }
@@ -43,23 +43,17 @@ void Fish::addOne(int offsetX)
 	auto sprite = Sprite::create("E1.png");
 	Size spriteSize = sprite->getContentSize();
 	FishList->addObject(sprite);
-	this->addChild(sprite);
+	this->addChild(sprite,6);
 	auto sprite2 = Sprite::create("E2.png");
 	Size spriteSize2 = sprite->getContentSize();
 	FishList->addObject(sprite2);
-	this->addChild(sprite2);
+	this->addChild(sprite2,6);
 	// set positon
-	int maxUpY = size.height + spriteSize.height / 4;
-	int minUpY = size.height - spriteSize.height / 4;
-	int y1 = CCRANDOM_0_1()*(maxUpY - minUpY) + minUpY;
-	int maxDownY = spriteSize.height / 4;
-	int minDownY = -spriteSize.height / 4;
-	int y2 = CCRANDOM_0_1()*(maxDownY - minDownY) + minDownY;
-	if (y1 - y2 - spriteSize.height < 160)
-	{
-		y2 = y1 - spriteSize.height - 160;
-	}
-	sprite->setPosition(Vec2(size.width + spriteSize.width / 2 + offsetX, y1));
-	sprite2->setPosition(Vec2(size.width + spriteSize2.width / 2 + offsetX, y2));
-	cocos2d::log("a fish added");
+	int maxY = size.height -spriteSize.height;
+	int minY = spriteSize.height;
+	int y1 = CCRANDOM_0_1()*(maxY - minY) + minY;
+	int y2=CCRANDOM_0_1()*(maxY-y1)+y1;
+	sprite->setPosition(Vec2(-spriteSize.width / 2 + offsetX, y1));
+	sprite2->setPosition(Vec2(-spriteSize2.width / 2 + offsetX, y2));
+	cocos2d::log("two fish added");
 }

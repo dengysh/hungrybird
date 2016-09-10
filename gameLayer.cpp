@@ -1,6 +1,7 @@
 #include "gameLayer.h"
 #include "DialogLayer.h"
 USING_NS_CC;
+using namespace std;
 Scene* gameLayer::createScene()
 {
 	auto scene = Scene::create();
@@ -12,6 +13,9 @@ bool gameLayer::init()
 {
 	if(!Layer::init())
 		return false;
+
+	score=0;
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -41,7 +45,7 @@ bool gameLayer::init()
 	//创建一个tempScore文本标签（临时分数）
 	scoreL = LabelTTF::create("0", "Arial",28);
 	//创建一个特效并播放
-	ActionInterval *act= RotateBy::create(0.1,-90);
+	ActionInterval *act= RotateBy::create(1,-90);
 	scoreL->runAction(act);
 	//设置标签字体的颜色
 	scoreL->setColor (ccc3(255,255,255));
@@ -58,7 +62,7 @@ bool gameLayer::init()
 	listener->onTouchesMoved = CC_CALLBACK_2(gameLayer::onTouchesMoved, this);
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	// Obstacle
+	// fish
 	fish = new Fish();
 	this->addChild(fish);
 
@@ -114,15 +118,20 @@ void gameLayer::update(float time)
 		//check collision
 		for (int i = 0; i < fish->FishList->count(); i++)
 		{
-			Sprite* obstacleSprite = (Sprite*)fish->FishList->getObjectAtIndex(i);
-			bool pia = rHero.intersectsRect(obstacleSprite->getBoundingBox());
+			Sprite* fishSprite = (Sprite*)fish->FishList->getObjectAtIndex(i);
+			bool pia = rHero.intersectsRect(fishSprite->getBoundingBox());
 			if (pia == true)
 			{
+				fish->FishList->removeObjectAtIndex(i);
+			    fish->removeChild(fishSprite);
+				
+			    cocos2d::log("a fish get");
+
 				score++;
-				char b[6];//把int 型的分数转换成string型的 然后set
-							snprintf(b, 6, "%d",score);
-							//更新显示总分数的文本标签
-							scoreL->setString(b);
+				std::string b=Value(score).asString(); 
+				
+			   //更新显示总分数的文本标签
+				scoreL->setString(b);
 
 			}
 			

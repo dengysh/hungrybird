@@ -19,6 +19,6 @@ public:
 	//当前分数的label
 	LabelTTF *scoreL;
 	int score;
-	float velocity;
+
 	Fish* fish;
 };
