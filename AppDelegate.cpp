@@ -1,9 +1,8 @@
 #include "AppDelegate.h"
-
-#include "bearStartLayer.h"
-
+#include"openlayer.h"
+#include"SimpleAudioEngine.h"
 USING_NS_CC;
-//using namespace CocosDenshion;
+using namespace CocosDenshion;
 static cocos2d::Size designResolutionSize = cocos2d::Size(800, 480);
 static cocos2d::Size smallResolutionSize = cocos2d::Size(800, 480);
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024,768);
@@ -84,7 +83,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	SimpleAudioEngine::getInstance()->preloadBackgroundMusic(bg_sound);*/
 
 	//auto scene=FlyBirdGame::createScene();
-	auto scene=BeginScene::createScene();
+	auto scene=openlayer::createscene();
 	// run
 	director->runWithScene(scene);
 	cocos2d::log("applicationDidFinishLaunching called");
@@ -96,7 +95,7 @@ void AppDelegate::applicationDidEnterBackground() {
 	Director::getInstance()->stopAnimation();
 	cocos2d::log("applicationDidEnterBackground called");
 	// if you use SimpleAudioEngine, it must be pause
-	//SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+	SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
@@ -104,5 +103,5 @@ void AppDelegate::applicationWillEnterForeground() {
 	Director::getInstance()->startAnimation();
 	cocos2d::log("applicationWillEnterForeground called");
 	// if you use SimpleAudioEngine, it must resume here
-	//SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+	SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }

@@ -10,6 +10,8 @@ class BeginScene: public cocos2d::Layer
 	// a selector callback
 	void menuCloseCallback(cocos2d::Ref* pSender);
 	void menustartCallback(cocos2d::Ref* pSender);
+	void menuhelpCallback(cocos2d::Ref* pSender);
+	void menurankCallback(cocos2d::Ref* pSender);
 	// implement the "static create()" method manually
 	CREATE_FUNC(BeginScene);
 };
