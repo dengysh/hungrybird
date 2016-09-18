@@ -28,7 +28,7 @@ bool BeginScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto label = Label::createWithTTF("Hungry Bear", "fonts/Marker Felt.ttf", 24);
-
+	label->setRotation(-90);
 	// position the label on the center of the screen
 	label->setPosition(Vec2(origin.x + visibleSize.width/2,
 		origin.y + visibleSize.height - label->getContentSize().height));
