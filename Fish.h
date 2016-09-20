@@ -10,7 +10,7 @@ public:
 	Fish();
 	virtual void onEnter();
 	void update(); 
-	void addOne(int offsetX);
+	void addOne(int num);
 	void checkDel();
 	int addCount;
 	int GAME_STATUS;
